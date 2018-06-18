@@ -4,34 +4,37 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FOS\UserBundle\Model\User as BaseUser;
+
+
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="fos_user")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $name;
+    protected $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $email;
+   
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="User")
      */
-    private $reservations;
+    protected $reservations;
 
 
     public function __construct()
@@ -56,17 +59,17 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
+    /*public function getEmail(): ?string
     {
         return $this->email;
-    }
+    }*/
 
-    public function setEmail(string $email): self
+   /* public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
-    }
+    }*/
 
     public function removeReservation(Reservation $reservation): self
     {
