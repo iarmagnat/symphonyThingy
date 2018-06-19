@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Salle;
+use App\Entity\Salle as Salle;
 use App\Form\SalleType;
 use App\Repository\SalleRepository;
+use App\Entity\Prestations as Prestations;
+use App\Form\PrestationsType;
+use App\Repository\PrestationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,17 +35,24 @@ class SalleController extends Controller
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($salle);
             $em->flush();
 
             return $this->redirectToRoute('salle_index');
         }
 
+        $sql = "select id, name, price_surface, price_user, price_fixed from prestations";
+        $pdo = $em->getConnection()->prepare($sql);
+        $pdo->execute();
+        $prestations = $pdo->fetchAll();
+        
         return $this->render('salle/new.html.twig', [
             'salle' => $salle,
             'form' => $form->createView(),
+            'prestations' => $prestations
         ]);
     }
 
