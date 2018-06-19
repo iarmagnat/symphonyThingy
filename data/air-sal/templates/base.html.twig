@@ -3,9 +3,31 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="/css/main.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <nav class="nav">
+            <ul class="nav__inner">
+                <li class="nav__item nav__item--logo">
+                    <a href="/" class="nav__link">
+                        <img src="" alt="Logo" class="nav__logo">
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a href="/" class="nav__link">Accueil</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/salle/" class="nav__link">Salles</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/contact/" class="nav__link">Contact</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/login/" class="nav__link">Se connecter</a>
+                </li>
+            </ul>
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
