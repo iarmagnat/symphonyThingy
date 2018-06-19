@@ -38,6 +38,16 @@ class Reservation
      */
     private $facture;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $DateStart;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $DateEnd;
+
     public function __construct()
     {
         $this->Prestations = new ArrayCollection();
@@ -121,6 +131,30 @@ class Reservation
         if ($this !== $facture->getReservation()) {
             $facture->setReservation($this);
         }
+
+        return $this;
+    }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->DateStart;
+    }
+
+    public function setDateStart(\DateTimeInterface $DateStart): self
+    {
+        $this->DateStart = $DateStart;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->DateEnd;
+    }
+
+    public function setDateEnd(\DateTimeInterface $DateEnd): self
+    {
+        $this->DateEnd = $DateEnd;
 
         return $this;
     }
