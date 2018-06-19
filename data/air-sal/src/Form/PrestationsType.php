@@ -16,8 +16,8 @@ class PrestationsType extends AbstractType
             ->add('price_surface')
             ->add('price_user')
             ->add('price_fixed')
-            ->add('reservations')
-            ->add('salles')
+            //->add('reservations')
+            //->add('salles')
         ;
     }
 
