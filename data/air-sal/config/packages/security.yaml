@@ -26,3 +26,8 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/reservation, role: ROLE_USER }
+        - { path: ^/prestation, role: ROLE_USER }
+        - { path: ^/salle, role: ROLE_USER }
+        - { path: ^/*/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/*/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/*/delete, role: ROLE_SUPER_ADMIN }
