@@ -26,6 +26,9 @@
                 <li class="nav__item">
                     <a href="/reservation/" class="nav__link">Reservations</a>
                 </li>
+                {% if app.user != null %}
+                    {# TODO admin only routes and related checks #}
+                {% endif %}
                 <li class="nav__item">
                     {% if app.user != null %}
                         <a href="/logout/" class="nav__link">Se deconnecter</a>
