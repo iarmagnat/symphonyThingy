@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Facture;
+use App\Entity\Reservation;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @Route("/facture")
@@ -24,16 +29,30 @@ class FactureController extends Controller
     }
 
     /**
-     * @Route("/new", name="facture_new", methods="GET|POST")
+     * @Route("/{id}/new", name="facture_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Reservation $reservation): Response
     {
-        /*$facture = new Facture();
-        $form$em = $this->getDoctrine()->getManager();
+        //die(var_dump($reservation));
+        $facture = new Facture();
+        $em = $this->getDoctrine()->getManager();
+        //$reservation = $request->request->get('reservation');
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $jsonReservation = $serializer->serialize($reservation, 'json');
+        die(var_dump($jsonReservation));
+        $facture->setData($jsonReservation);
+        $facture->setReservation($reservation);
+        $facture->setPrice($reservation->getReservationPrice());
+
         $em->persist($facture);
-        $em->flush();*/
+        $em->flush();
        
-        return $this->redirectToRoute('reservation_index');
+        return $this->redirectToRoute('facture_show', ['id' => $facture->getId()]);
     }
 
     /**
