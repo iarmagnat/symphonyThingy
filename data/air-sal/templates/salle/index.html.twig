@@ -1,36 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'tables.html.twig' %}
 
-{% block title %}Salle index{% endblock %}
+{% block title %}Air-sal vous présente ses salles{% endblock %}
 
-{% block body %}
-    <h1>Salle index</h1>
+{% block content %}
+
+    <h1>Nos salles</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Address</th>
-                <th>Size</th>
-                <th>Capacity</th>
-                <th>Published</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Adresse</th>
+            <th>Surface</th>
+            <th>Capacité</th>
+
+            {# FIXME: delete me#}
+            <th>Published</th>
+
+            <th>Nom</th>
+            <th>Price</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for salle in salles %}
             <tr>
-                <td>{{ salle.id }}</td>
                 <td>{{ salle.address }}</td>
                 <td>{{ salle.size }}</td>
                 <td>{{ salle.capacity }}</td>
+
+                {# FIXME: delete me #}
                 <td>{{ salle.published ? 'Yes' : 'No' }}</td>
+
                 <td>{{ salle.name }}</td>
-                <td>{{ salle.price }}</td>
+                <td>{{ salle.price }}€</td>
                 <td>
                     <a href="{{ path('salle_show', {'id': salle.id}) }}">show</a>
-                    <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
+                    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                        <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -41,5 +48,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('salle_new') }}">Create new</a>
+    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+        <a href="{{ path('salle_new') }}">Create new</a>
+    {% endif %}
+
 {% endblock %}
