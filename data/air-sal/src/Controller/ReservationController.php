@@ -37,8 +37,8 @@ class ReservationController extends Controller
             $reservation->setUser($security->getUser());
             $em->persist($reservation);
             $em->flush();
-
-            return $this->redirectToRoute('facture_new');
+            //die(var_dump($reservation));
+            return $this->redirectToRoute('facture_new', ['id' => $reservation->getId()]);
         }
 
         return $this->render('reservation/new.html.twig', [

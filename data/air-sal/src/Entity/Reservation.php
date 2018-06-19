@@ -158,4 +158,14 @@ class Reservation
 
         return $this;
     }
+    
+    public function getReservationPrice(){
+        $prix = $this->getSalle()->getPrice();
+        foreach ($this->getPrestations() as $presta){
+            $prix +=  $presta->getPriceSurface() * $this->getSalle()->getSize();
+            $prix +=  $presta->getPriceUser() * $this->getSalle()->getCapacity();
+            $prix +=  $presta->getPriceFixed();
+        }
+        return $prix;
+    }
 }
