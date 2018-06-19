@@ -24,10 +24,18 @@
                     <a href="/contact/" class="nav__link">Contact</a>
                 </li>
                 <li class="nav__item">
-                    <a href="/login/" class="nav__link">Se connecter</a>
+                    <a href="/reservation/" class="nav__link">Reservations</a>
+                </li>
+                <li class="nav__item">
+                    {% if app.user != null %}
+                        <a href="/logout/" class="nav__link">Se deconnecter</a>
+                    {%  else %}
+                        <a href="/login/" class="nav__link">Se connecter</a>
+                    {%  endif %}
                 </li>
             </ul>
         </nav>
+        {#{{ app.user.email }}#}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
