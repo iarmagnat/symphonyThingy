@@ -61,7 +61,9 @@ class Prestations
     
         // if no translation has been added, return empty string instead.
         return '';
-    }    
+    }
+
+    
 
     public function getId()
     {
