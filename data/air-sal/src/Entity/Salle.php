@@ -64,6 +64,15 @@ class Salle
         $this->Prestations = new ArrayCollection();
     }
 
+    public function __toString() {
+        if( $name = $this->getName() ) {
+            return $name;
+        }
+    
+        // if no translation has been added, return empty string instead.
+        return '';
+    }
+
     public function getId()
     {
         return $this->id;

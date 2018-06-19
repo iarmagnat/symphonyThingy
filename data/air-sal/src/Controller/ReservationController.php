@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Security;
 /**
  * @Route("/reservation")
  */
@@ -26,7 +26,7 @@ class ReservationController extends Controller
     /**
      * @Route("/new", name="reservation_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Security $security): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -34,10 +34,11 @@ class ReservationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $reservation->setUser($security->getUser());
             $em->persist($reservation);
             $em->flush();
 
-            return $this->redirectToRoute('reservation_index');
+            return $this->redirectToRoute('facture_new');
         }
 
         return $this->render('reservation/new.html.twig', [

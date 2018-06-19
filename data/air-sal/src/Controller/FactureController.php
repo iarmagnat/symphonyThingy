@@ -28,22 +28,12 @@ class FactureController extends Controller
      */
     public function new(Request $request): Response
     {
-        $facture = new Facture();
-        $form = $this->createForm(FactureType::class, $facture);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($facture);
-            $em->flush();
-
-            return $this->redirectToRoute('facture_index');
-        }
-
-        return $this->render('facture/new.html.twig', [
-            'facture' => $facture,
-            'form' => $form->createView(),
-        ]);
+        /*$facture = new Facture();
+        $form$em = $this->getDoctrine()->getManager();
+        $em->persist($facture);
+        $em->flush();*/
+       
+        return $this->redirectToRoute('reservation_index');
     }
 
     /**

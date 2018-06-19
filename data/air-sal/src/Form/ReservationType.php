@@ -14,8 +14,8 @@ class ReservationType extends AbstractType
         $builder
             ->add('Salle')
             ->add('Prestations')
-            ->add('User')
-            ->add('facture')
+            //->add('User')
+            //->add('facture')
         ;
     }
 
