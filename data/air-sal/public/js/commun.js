@@ -11,5 +11,11 @@ $(document).ready(function(){
         });
     })
 
+   
+    $("#print").on("click", function(){
+        console.log("mes couilles sur");
+        $("#printable").show();
+        window.print();
+    });
 
 });
