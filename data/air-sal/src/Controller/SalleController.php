@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+
 
 /**
  * @Route("/salle")
@@ -22,9 +24,15 @@ class SalleController extends Controller
     /**
      * @Route("/", name="salle_index", methods="GET")
      */
-    public function index(SalleRepository $salleRepository): Response
+    public function index(SalleRepository $salleRepository, Security $security): Response
     {
-        return $this->render('salle/index.html.twig', ['salles' => $salleRepository->findAll()]);
+//        var_dump($security->getUser()->getRoles());die();
+        if (in_array("ROLE_ADMIN", $security->getUser()->getRoles())) {
+            $salles = $salleRepository->findAll();
+        } else {
+            $salles = $salleRepository->findBy(array("published" => True));
+        }
+        return $this->render('salle/index.html.twig', ['salles' => $salles]);
     }
 
     /**

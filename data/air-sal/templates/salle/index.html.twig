@@ -13,8 +13,9 @@
             <th>Surface</th>
             <th>Capacité</th>
 
-            {# FIXME: delete me#}
-            <th>Published</th>
+            {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                <th>Published</th>
+            {% endif %}
 
             <th>Nom</th>
             <th>Price</th>
@@ -28,8 +29,9 @@
                 <td>{{ salle.size }}</td>
                 <td>{{ salle.capacity }}</td>
 
-                {# FIXME: delete me #}
-                <td>{{ salle.published ? 'Yes' : 'No' }}</td>
+                {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                    <td>{{ salle.published ? 'Yes' : 'No' }}</td>
+                {% endif %}
 
                 <td>{{ salle.name }}</td>
                 <td>{{ salle.price }}€</td>
@@ -56,8 +58,8 @@
 
 {% block javascripts %}
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('table.table.index').DataTable();
-        } );
+        });
     </script>
 {% endblock %}
