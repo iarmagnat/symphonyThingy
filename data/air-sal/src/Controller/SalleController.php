@@ -11,6 +11,7 @@ use App\Repository\PrestationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -51,8 +52,7 @@ class SalleController extends Controller
         
         return $this->render('salle/new.html.twig', [
             'salle' => $salle,
-            'form' => $form->createView(),
-            'prestations' => $prestations
+            'form' => $form->createView()
         ]);
     }
 
@@ -96,5 +96,22 @@ class SalleController extends Controller
         }
 
         return $this->redirectToRoute('salle_index');
+    }
+
+
+
+    /**
+     * @Route("/{id}/prestations", name="salle_prestations", methods="GET")
+     */
+    public function getSallePrestations(Request $request, Salle $salle): Response
+    {
+        var_dump( $salle->getId(), $salle->getName() );
+        die();
+        $datas = json_encode( $salle->getPrestations() );
+        $presta = $salle->getPrestations();
+        return new JsonResponse(array(
+                                'presta'=> $presta,
+                                'salle'=> $salle
+                                 ) );
     }
 }
