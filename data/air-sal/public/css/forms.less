@@ -29,3 +29,31 @@
         text-align: center;
     }
 }
+
+.edit-form {
+    form {
+        margin: 15px 0;
+        & > div {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            div {
+                width: 60%;
+                label {
+                    display: inline-block;
+                    width: 50%;
+                }
+                input {
+                    display: inline-block;
+                    width: 50%;
+                    margin: 0;
+                }
+            }
+        }
+        button {
+            margin-left: 20%;
+        }
+    }
+
+}
