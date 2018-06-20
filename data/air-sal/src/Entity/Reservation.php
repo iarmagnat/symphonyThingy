@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,17 +20,20 @@ class Reservation
     private $id;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Salle", inversedBy="reservations")
      */
     private $Salle;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Prestations", inversedBy="reservations")
      */
     private $Prestations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
+     * @MaxDepth(1)
      */
     private $User;
 

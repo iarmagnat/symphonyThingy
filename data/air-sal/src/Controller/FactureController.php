@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use \stdClass;
 use App\Entity\Facture;
 use App\Entity\Reservation;
 use App\Form\FactureType;
@@ -14,6 +14,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * @Route("/facture")
@@ -33,19 +35,25 @@ class FactureController extends Controller
      */
     public function new(Request $request, Reservation $reservation): Response
     {
-        //die(var_dump($reservation));
-        $facture = new Facture();
-        $em = $this->getDoctrine()->getManager();
+        /*die(var_dump($reservation));
+        
         //$reservation = $request->request->get('reservation');
 
         $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
+        $normalizers = new ObjectNormalizer();
+        $normalizers->setMaxDepthHandler(function($element){
+            return $element->getId();
+        });
+        $serializer = new Serializer(array($normalizers), $encoders);
+        
+        $jsonReservation = $serializer->normalize($reservation, null, array('enable_max_depth' => true));
+       // $jsonReservation = $serializer->serialize($jsonReservation, 'json');
+        die(var_dump($jsonReservation));*/
 
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonReservation = $serializer->serialize($reservation, 'json');
-        die(var_dump($jsonReservation));
-        $facture->setData($jsonReservation);
+        $facture = new Facture();
+        $em = $this->getDoctrine()->getManager();
+        $newFacture = $this->reservationToJson($reservation);
+        $facture->setData(json_encode($newFacture));
         $facture->setReservation($reservation);
         $facture->setPrice($reservation->getReservationPrice());
 
@@ -55,12 +63,53 @@ class FactureController extends Controller
         return $this->redirectToRoute('facture_show', ['id' => $facture->getId()]);
     }
 
+    private function reservationToJson(Reservation $reservation)
+    {
+        $f = new \stdClass;
+        $u = new \stdClass;
+        $s = new \stdClass;
+        $r = new \stdClass;
+
+        //la salle
+        $s -> name = $reservation->getSalle()->getName() ;
+        $s -> size = $reservation->getSalle()->getSize();
+        $s -> capacity = $reservation->getSalle()->getCapacity();
+        $s -> address = $reservation->getSalle()->getAddress();
+        $s -> price = $reservation->getSalle()->getPrice();
+
+        $u -> name = $reservation->getUser()->getUsername();
+        $u -> email = $reservation->getUser()->getEmail();      
+        
+        $r -> DateStart = $reservation->getDateStart();
+        $r -> DateEnd = $reservation->getDateEnd();
+        $r -> prix = $reservation->getReservationPrice();
+        
+
+        $prestarions = array();
+        foreach($reservation->getPrestations() as $presta){
+            $p = new \stdClass;
+            $p->price_fixed = $presta->getPriceFixed();
+            $p->price_user = $presta->getPriceUser();
+            $p->price_surface = $presta->getPriceSurface();            
+            $prestations[$presta->getName()] = $p;
+        }
+
+        $f -> user = $u;
+        $f -> salle = $s;
+        $f -> reservation = $r;
+        $f -> prestations = $prestations;
+
+        return $f;
+
+    }
+
     /**
      * @Route("/{id}", name="facture_show", methods="GET")
      */
-    public function show(Facture $facture): Response
+    public function show(Facture $facture ): Response
     {
-        return $this->render('facture/show.html.twig', ['facture' => $facture]);
+        $data = json_decode($facture->getData(), true);        
+        return $this->render('facture/show.html.twig', ['facture' => $facture, "data"=>$data]);
     }
 
     /**
