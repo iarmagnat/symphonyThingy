@@ -3,13 +3,13 @@ $(document).ready(function(){
     $('#reservation_Salle').on('change',function(){
         console.log("toto");
         $.ajax({
-            url : "{{ path('salle_prestations' , {'id' : $(this).val() } ) }}",
+            url : "/salle/"+ $(this).val() +"/prestations",
             type : 'GET',
             success : function(datas, statut){
-                console.log(datas.msg);
+                console.log(datas);
             }
         });
-    })
+    });
 
    
     function printData()
@@ -23,6 +23,6 @@ $(document).ready(function(){
 
     $('#print').on('click',function(){
         printData();
-    })
+    });
 
 });
