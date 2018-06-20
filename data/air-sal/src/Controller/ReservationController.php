@@ -5,6 +5,12 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Entity\Prestations;
+use App\Form\PrestationsType;
+use App\Repository\PrestationsRepository;
+use App\Entity\Salle;
+use App\Form\SalleType;
+use App\Repository\SalleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +37,6 @@ class ReservationController extends Controller
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $reservation->setUser($security->getUser());
@@ -43,6 +48,8 @@ class ReservationController extends Controller
 
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
+            'salles'      => $this->getDoctrine()->getRepository(Salle::class)->findAll(),
+            'prestations' => $this->getDoctrine()->getRepository(Prestations::class)->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -88,4 +95,14 @@ class ReservationController extends Controller
 
         return $this->redirectToRoute('reservation_index');
     }
+
+    /**
+     * @Route("/new/submitForm", name="reservation_submit", methods="POST")
+     */
+    public function submitForm(Request $request, Security $security): Response
+    {
+        die(var_dump($request->query));
+    }
+
+
 }

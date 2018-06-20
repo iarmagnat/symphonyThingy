@@ -11,7 +11,7 @@ $(document).ready(function(){
         });
     });
 
-   
+
     function printData()
     {
         var divToPrint=document.getElementById("printable");
@@ -24,5 +24,6 @@ $(document).ready(function(){
     $('#print').on('click',function(){
         printData();
     });
+
 
 });

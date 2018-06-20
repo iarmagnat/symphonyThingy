@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use \stdClass;
 use App\Entity\Salle as Salle;
 use App\Form\SalleType;
 use App\Repository\SalleRepository;
@@ -113,13 +114,16 @@ class SalleController extends Controller
      */
     public function getSallePrestations(Request $request, Salle $salle): Response
     {
-        var_dump( $salle->getId(), $salle->getName() );
-        die();
-        $datas = json_encode( $salle->getPrestations() );
-        $presta = $salle->getPrestations();
-        return new JsonResponse(array(
-                                'presta'=> $presta,
-                                'salle'=> $salle
-                                 ) );
+        $prestations =null ;
+        foreach( $salle->getPrestations() as $presta ){
+            $p = new \StdClass;
+            $p->price_fixed     = $presta->getPriceFixed();
+            $p->price_user      = $presta->getPriceUser();
+            $p->price_surface   = $presta->getPriceSurface();
+            $p->name            = $presta->getName();
+            $prestations[$p->id] = $p;
+        }
+
+        return new JsonResponse(array( 'prestations'=> $prestations ) );
     }
 }
