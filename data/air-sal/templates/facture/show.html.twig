@@ -1,30 +1,104 @@
-{% extends 'base.html.twig' %}
+{% extends 'tables.html.twig' %}
 
 {% block title %}Facture{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>Facture</h1>
+    <div id="printble">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>User - name</th>
+                    <td>{{ data.user.name }}</td>
+                </tr>
+                <tr>
+                    <th>User - email</th>
+                    <td>{{ data.user.email }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td></td>
+                </tr>  
+                <tr>
+                    <th>reservation - début</th>
+                    <td>{{ data.reservation.DateStart.date|date("d/m/Y") }}</td>
+                </tr>
+                <tr>
+                    <th>reservation - fin</th>
+                    <td>{{ data.reservation.DateEnd.date|date("d/m/Y") }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ facture.price }}</td>
+                </tr>
+            </tbody>
+        </table>   
+        <h3>Salle</h3>     
+        <table class="table">
+            <tbody>            
+                <tr>
+                    <th>Salle</th>
+                    <td>{{ data.salle.name }}</td>
+                </tr>
+                <tr>
+                    <th>Salle - prix</th>
+                    <td>{{ data.salle.price }}</td>
+                </tr>
+                <tr>
+                    <th>Salle - size</th>
+                    <td>{{ data.salle.size }}</td>
+                </tr>
+                <tr>
+                    <th>Salle - capacité</th>
+                    <td>{{ data.salle.capacity }}</td>
+                </tr>
+                <tr>
+                    <th>Salle - adresse</th>
+                    <td>{{ data.salle.address }}</td>
+                </tr>
+            </tbody>
+        </table>        
+        <h3>Prestations</h3>
+        <table class="table">
+            <tbody>  
+                {% for k,r in data.prestations %}
+                    <tr>
+                        <th>{{ k }} - Prix fixe</th>
+                        <td>{{ r.price_fixed }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ k }} - Prix sur la surface</th>
+                        <td>{{ r.price_surface }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ k }} - Prix au nombre de personnes</th>
+                        <td>{{ r.price_user }}</td>
+                    </tr>
+                {% endfor %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ facture.id }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ facture.price }}</td>
-            </tr>
-            <tr>
-                <th>Data</th>
-                <td>{{ facture.data }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <a href="{{ path('facture_index') }}">back to list</a>
 
     <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
 
+    <button id="print">
+        Imprime Moi.
+    </button>
+
     {{ include('facture/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+    $(document).ready(function(){
+        console.log("huitre");
+        $("#print").on("click", function(){
+            console.log("mes couilles sur");
+            $("#printable").show();
+            window.print();
+        });
+    })        
+    </script>
 {% endblock %}

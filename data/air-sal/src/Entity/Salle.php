@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +44,7 @@ class Salle
     private $name;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="Salle")
      */
     private $reservations;
@@ -54,6 +55,7 @@ class Salle
     private $price;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Prestations", inversedBy="salles")
      */
     private $Prestations;

@@ -1,11 +1,11 @@
-{% extends 'tables.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Facture index{% endblock %}
 
-{% block content %}
+{% block body %}
     <h1>Facture index</h1>
 
-    <table class="table index">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -31,15 +31,5 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('facture_new') }}">Create new</a>
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        $(document).ready( function () {
-            $('table.table.index').DataTable();
-        } );
-    </script>
+    </table>    
 {% endblock %}
