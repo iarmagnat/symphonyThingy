@@ -12,10 +12,17 @@ $(document).ready(function(){
     })
 
    
-    $("#print").on("click", function(){
-        console.log("mes couilles sur");
-        $("#printable").show();
-        window.print();
-    });
+    function printData()
+    {
+        var divToPrint=document.getElementById("printable");
+        newWin= window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+
+    $('#print').on('click',function(){
+        printData();
+    })
 
 });
