@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Prestations index</h1>
 
-    <table class="table">
+    <table class="table index">
         <thead>
             <tr>
                 <th>Id</th>
@@ -38,4 +38,12 @@
     </table>
 
     <a href="{{ path('prestations_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            $('table.table.index').DataTable();
+        } );
+    </script>
 {% endblock %}

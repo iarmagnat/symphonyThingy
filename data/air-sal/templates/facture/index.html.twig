@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Facture index</h1>
 
-    <table class="table">
+    <table class="table index">
         <thead>
             <tr>
                 <th>Id</th>
@@ -34,4 +34,12 @@
     </table>
 
     <a href="{{ path('facture_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            $('table.table.index').DataTable();
+        } );
+    </script>
 {% endblock %}
