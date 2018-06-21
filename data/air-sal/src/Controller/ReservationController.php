@@ -103,8 +103,7 @@ class ReservationController extends Controller
      */
     public function submitForm(Request $request, Security $security): Response
     {
-        var_dump($_POST);
-
+       
         $doc = $this->getDoctrine();
         $docS = $doc->getRepository(Salle::class);
         $docP = $doc->getRepository(Prestations::class);

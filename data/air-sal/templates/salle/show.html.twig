@@ -42,5 +42,49 @@
 
     <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
 
+
+    <form name="reservation" method="post" action="/reservation/new/submitForm"> 
+
+            
+                {%- set prestas = "" -%}
+                {%- for presta in salle.prestations -%}
+                    {% set prestas = prestas ~ presta.getId() ~ "," %}
+                {%- endfor -%}
+                <input type="hidden"  value="{{ salle.getId() }}" name="salle" data-presta="{{ prestas }}" placeholder='{{salle.name}} - {{salle.price}}€' >
+            
+
+        <table class="checkboxPresta">
+            <tr>
+                <th></th>
+                <th>Prestation</th>
+                <th>Prix fixe</th>
+                <th>Prix / m²</th>
+                <th>Prix / personne</th>
+            </tr>
+            {% if salle.prestations|length == 0 %}
+                Aucune prestation n'est enregistrée pour cette salle
+            {% else %}
+                {% for p in salle.prestations %}
+                    <tr class="prestations_list" id="prestation_{{ p.getId() }}">
+                        <td ><input type="checkbox" name="prestations[]" value="{{ p.getId() }}"></td>
+                        <td> {{ p.name() }} </td>
+                        <td> {{ p.priceFixed() }}  </td>
+                        <td> {{ p.priceSurface() }}  </td>
+                        <td> {{ p.priceUser() }}  </td>
+                {% endfor %}
+            {% endif %}
+        </table>
+
+        <label for="#resa_start"> Date de début de location</label>
+        <input id="resa_start" type="date" name="date_start"> 
+        <label for="#resa_end"> Date de fin de l ocation</label>
+        <input id="resa_end" type="date" name="date_end"> 
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        
+    
+    
+    </form>
+
     {{ include('salle/_delete_form.html.twig') }}
 {% endblock %}
