@@ -86,7 +86,7 @@ class FactureController extends Controller
         $r -> prix = $reservation->getReservationPrice();
         
 
-        $prestarions = array();
+        $prestations = array();
         foreach($reservation->getPrestations() as $presta){
             $p = new \stdClass;
             $p->price_fixed = $presta->getPriceFixed();
