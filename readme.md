@@ -47,3 +47,19 @@ Then install node in any way you want, then less as a global package
 
 `> php bin/console server:run`
 
+---
+
+## Tasks:
+#presque toute les taches on été réaliser a plusieur pour la résolution des difficultés majeurs. On a tous travailler un peu sur tout, main dans la. 
+
+- UML : ivan
+- Integration DB : ALL mostly stephen
+- css : Ivan
+- Facture : Ervan Ivan
+- Json et impression : ervan
+- réservation : stephen 
+- fos user : Ivan ervan
+- vagrant : all mostly Ivan
+- Doc : Ivan Ervan
+- Choix du logo : personne/20 mostly Ivan  
+
