@@ -49,7 +49,7 @@ Créer une db `air_sal` dans mysql.
 
 #### To promote user to admin
 
-`> php bin/console fos:user:promote`
+`> php bin/console fos:user:promote` Et donner le role `ROLE_ADMIN`
 
 ---
 
