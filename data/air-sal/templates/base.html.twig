@@ -31,6 +31,9 @@
                 </li>
                 {% if app.user != null %}
                     {# TODO admin only routes and related checks #}
+                    <li class="nav__item">
+                        <a href={{ path('facture_index')}} class="nav__link">Facture</a>
+                    </li>
                 {% endif %}
                 <li class="nav__item">
                     {% if app.user != null %}
