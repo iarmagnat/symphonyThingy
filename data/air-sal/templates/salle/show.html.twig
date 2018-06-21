@@ -81,6 +81,9 @@
         <input id="resa_start" type="date" name="date_start"> 
         <label for="#resa_end"> Date de fin de l ocation</label>
         <input id="resa_end" type="date" name="date_end"> 
+        {% if errorDateMsg is defined and errorDateMsg != "" %}
+            <span class="errorMsg" style="color:red;"> {{ errorDateMsg }}  </span>
+        {% endif %}
 
         <button class="btn">{{ button_label|default('Save') }}</button>
         
