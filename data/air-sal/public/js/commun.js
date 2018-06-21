@@ -25,5 +25,17 @@ $(document).ready(function(){
         printData();
     });
 
+    $('#reservation_Salle').on('change',function(){
+        console.log("toto");
+        $.ajax({
+            url : "/salle/"+ $(this).val() +"/prestations",
+            type : 'GET',
+            success : function(datas, statut){
+                console.log(datas);
+            }
+        });
+    });
+        
+
 
 });
