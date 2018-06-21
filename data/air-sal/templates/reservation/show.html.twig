@@ -14,9 +14,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('reservation_index') }}">back to list</a>
+    <a href="{{ path('reservation_index') }}" class="button6">back to list</a>
 
-    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}" class="button6">edit</a>
 
     {{ include('reservation/_delete_form.html.twig') }}
 {% endblock %}

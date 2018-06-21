@@ -47,7 +47,7 @@
             <label for="#resa_end"> Date de fin de l ocation</label>
             <input id="resa_end" type="date" name="date_end">
 
-            <button class="btn">{{ button_label|default('Save') }}</button>
+            <button class="btn button6">{{ button_label|default('Save') }}</button>
 
 
         </form>
@@ -59,7 +59,7 @@
 
     {#{{ include('reservation/_form.html.twig') }}#}
 
-    <a href="{{ path('reservation_index') }}">Retourner à la liste</a>
+    <a href="{{ path('reservation_index') }}" class="button6">Retourner à la liste</a>
 
 
 {% endblock %}
