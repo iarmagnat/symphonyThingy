@@ -32,6 +32,20 @@ class Facture
      */
     private $Reservation;
 
+    public function __toString() {
+        if( $id = $this->getId() ) {
+            return strval($id);
+        }else{
+            return " nononononononooooooon ";
+        }
+    }
+
+    public function __toInt() {
+        if( $id = $this->getId() ) {
+            return $id;
+        }
+    }
+
     public function getId()
     {
         return $this->id;

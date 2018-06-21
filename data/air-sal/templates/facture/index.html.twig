@@ -21,8 +21,8 @@
                 <td>{{ facture.price }}</td>
                 <td>{{ facture.data }}</td>
                 <td>
-                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
-                    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
+                    <a href="{{ path('facture_show', {'id': facture.id}) }}" class="bouton6">show</a>
+                    <a href="{{ path('facture_edit', {'id': facture.id}) }}" class="bouton6">edit</a>
                 </td>
             </tr>
         {% else %}

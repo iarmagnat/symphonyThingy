@@ -39,8 +39,8 @@
                 <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                 <td>{{ user.id }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}" class="bouton6">show</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="bouton6">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -51,5 +51,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}" class="bouton6">Create new</a>
 {% endblock %}

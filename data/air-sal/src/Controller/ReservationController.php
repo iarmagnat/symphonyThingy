@@ -130,8 +130,7 @@ class ReservationController extends Controller
         $em->persist($reservation);
         $em->flush();
 
-        return $this->redirectToRoute('reservation_index');
-
+        return $this->redirectToRoute('facture_new', ['id' => $reservation->getId()]);
     }
 
 

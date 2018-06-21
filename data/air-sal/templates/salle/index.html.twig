@@ -36,9 +36,9 @@
                 <td>{{ salle.name }}</td>
                 <td>{{ salle.price }}€</td>
                 <td>
-                    <a href="{{ path('salle_show', {'id': salle.id}) }}">Detail</a>
+                    <a href="{{ path('salle_show', {'id': salle.id}) }}" class="bouton6">Détail</a>
                     {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
-                        <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
+                        <a href="{{ path('salle_edit', {'id': salle.id}) }}" class="bouton6">edit</a>
                     {% endif %}
                 </td>
             </tr>
@@ -51,7 +51,7 @@
     </table>
 
     {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
-        <a href="{{ path('salle_new') }}">Create new</a>
+        <a class ="bouton6" href="{{ path('salle_new') }}">Create new</a>
     {% endif %}
 
 {% endblock %}

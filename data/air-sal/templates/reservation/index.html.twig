@@ -9,21 +9,28 @@
         <thead>
         <tr>
             <th>Id</th>
+            <th>Salle</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
             <th>actions</th>
         </tr>
         </thead>
         <tbody>
         {% for reservation in reservations %}
+            
             <tr>
                 <td>{{ reservation.id }}</td>
+                <td>{{ reservation.salle }}</td>
+                <td>{{ reservation.DateStart.date|date("d/m/Y") }}</td>
+                <td>{{ reservation.DateEnd.date|date("d/m/Y") }}</td>
                 <td>
-                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}">Détails</a>
+                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}" class="bouton6">Détails</a>
                     {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
-                        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+                        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}" class="bouton6">edit</a>
                     {% endif %}
-                    {#{% if app.user != null and (app.user.hasrole("ROLE_ADMIN") or app.user.id == reservation.getUser().id) %}#}
-                        {#<a href="{{ path('facture_show', {'id': reservation.getFacture().id}) }}">Facture</a>#}
-                    {#{% endif %}#}
+                    {% if app.user != null and (app.user.hasrole("ROLE_ADMIN") or app.user.id == reservation.getUser().id) %}
+                        <a href="/facture/{{ reservation.facture }}" class="bouton8">Facture</a>                        
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -33,8 +40,10 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+        <a href="{{ path('reservation_new') }}" class="bouton6">Create new</a>
+    {% endif %}
 
-    <a href="{{ path('reservation_new') }}">Create new</a>
 {% endblock %}
 
 

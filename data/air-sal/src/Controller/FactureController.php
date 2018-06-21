@@ -56,10 +56,11 @@ class FactureController extends Controller
         $facture->setData(json_encode($newFacture));
         $facture->setReservation($reservation);
         $facture->setPrice($reservation->getReservationPrice());
-
+        
         $em->persist($facture);
+        $reservation->setFacture($facture);
+        $em->persist($reservation);
         $em->flush();
-       
         return $this->redirectToRoute('facture_show', ['id' => $facture->getId()]);
     }
 

@@ -25,8 +25,8 @@
                 <td>{{ prestation.priceUser }}</td>
                 <td>{{ prestation.priceFixed }}</td>
                 <td>
-                    <a href="{{ path('prestations_show', {'id': prestation.id}) }}">show</a>
-                    <a href="{{ path('prestations_edit', {'id': prestation.id}) }}">edit</a>
+                    <a href="{{ path('prestations_show', {'id': prestation.id}) }}" class="bouton6">show</a>
+                    <a href="{{ path('prestations_edit', {'id': prestation.id}) }}" class="bouton6">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -36,8 +36,9 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('prestations_new') }}">Create new</a>
+    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+        <a href="{{ path('prestations_new') }}" class="bouton6">Create new</a>
+    {% endif %}
 {% endblock %}
 
 {% block js %}
