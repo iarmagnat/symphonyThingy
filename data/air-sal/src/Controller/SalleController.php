@@ -121,7 +121,7 @@ class SalleController extends Controller
             $p->price_user      = $presta->getPriceUser();
             $p->price_surface   = $presta->getPriceSurface();
             $p->name            = $presta->getName();
-            $prestations[$p->id] = $p;
+            $prestations[$presta->getId()] = $p;
         }
 
         return new JsonResponse(array( 'prestations'=> $prestations ) );

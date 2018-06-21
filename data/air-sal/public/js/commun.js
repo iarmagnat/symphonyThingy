@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     function printData()
     {
-        var divToPrint=document.getElementById("printable");
+        const divToPrint=document.getElementById("printable");
         newWin= window.open("");
         newWin.document.write(divToPrint.outerHTML);
         newWin.print();

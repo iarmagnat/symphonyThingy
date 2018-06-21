@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 /**
  * @Route("/reservation")
  */
@@ -101,7 +103,31 @@ class ReservationController extends Controller
      */
     public function submitForm(Request $request, Security $security): Response
     {
-        die(var_dump($request->query));
+        var_dump($_POST);
+
+        $doc = $this->getDoctrine();
+        $docS = $doc->getRepository(Salle::class);
+        $docP = $doc->getRepository(Prestations::class);
+        $reservation = new Reservation();
+        $reservation -> setSalle( $docS->findOneById( intval($_POST['salle']) ) );
+        if(isset($_POST['prestations']) ){
+            foreach( $_POST['prestations'] as $p ){
+                $reservation -> addPrestation( $docP->findOneById( intval($p) ) );
+            }
+        }
+
+        $dateStart = new \DateTime( $_POST['date_start'] );
+        $reservation -> setDateStart(  $dateStart );
+        $dateEnd = new \DateTime($_POST['date_end']);
+        $reservation -> setDateEnd( $dateEnd );
+
+        $em = $this->getDoctrine()->getManager();
+        $reservation->setUser($security->getUser());
+        $em->persist($reservation);
+        $em->flush();
+
+        return $this->redirectToRoute('reservation_index');
+
     }
 
 
