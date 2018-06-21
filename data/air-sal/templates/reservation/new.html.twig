@@ -41,11 +41,12 @@
                 {% endfor %}
                 </tbody>
             </table>
-
+            {% set today = 'today'|date_modify("+0 day") %}
+            {% set tomorrow = 'now'|date_modify("+1 day") %}
             <label for="#resa_start"> Date de début de location</label>
-            <input id="resa_start" type="date" name="date_start">
+            <input id="resa_start" type="date" name="date_start" class="datepicker" value="{{ today | date("Y-m-d") }}">
             <label for="#resa_end"> Date de fin de l ocation</label>
-            <input id="resa_end" type="date" name="date_end">
+            <input id="resa_end" type="date" name="date_end" class="datepicker" value="{{ tomorrow | date("Y-m-d") }}">
 
             <button class="btn">{{ button_label|default('Save') }}</button>
 
