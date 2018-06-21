@@ -47,10 +47,15 @@ class ReservationController extends Controller
             //die(var_dump($reservation));
             return $this->redirectToRoute('facture_new', ['id' => $reservation->getId()]);
         }
+        if (in_array("ROLE_ADMIN", $security->getUser()->getRoles())) {
+            $salles = $this->getDoctrine()->getRepository(Salle::class)->findAll();
+        } else {
+            $salles = $this->getDoctrine()->getRepository(Salle::class)->findBy(array("published" => True));
+        }
 
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
-            'salles'      => $this->getDoctrine()->getRepository(Salle::class)->findAll(),
+            'salles' => $salles,
             'prestations' => $this->getDoctrine()->getRepository(Prestations::class)->findAll(),
             'form' => $form->createView(),
         ]);
@@ -89,7 +94,7 @@ class ReservationController extends Controller
      */
     public function delete(Request $request, Reservation $reservation): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($reservation);
             $em->flush();
@@ -108,17 +113,17 @@ class ReservationController extends Controller
         $docS = $doc->getRepository(Salle::class);
         $docP = $doc->getRepository(Prestations::class);
         $reservation = new Reservation();
-        $reservation -> setSalle( $docS->findOneById( intval($_POST['salle']) ) );
-        if(isset($_POST['prestations']) ){
-            foreach( $_POST['prestations'] as $p ){
-                $reservation -> addPrestation( $docP->findOneById( intval($p) ) );
+        $reservation->setSalle($docS->findOneById(intval($_POST['salle'])));
+        if (isset($_POST['prestations'])) {
+            foreach ($_POST['prestations'] as $p) {
+                $reservation->addPrestation($docP->findOneById(intval($p)));
             }
         }
 
-        $dateStart = new \DateTime( $_POST['date_start'] );
-        $reservation -> setDateStart(  $dateStart );
+        $dateStart = new \DateTime($_POST['date_start']);
+        $reservation->setDateStart($dateStart);
         $dateEnd = new \DateTime($_POST['date_end']);
-        $reservation -> setDateEnd( $dateEnd );
+        $reservation->setDateEnd($dateEnd);
 
         if($dateStart >= $dateEnd ){
             return $this->render('salle/show.html.twig', ['salle' => $docS->findOneById( intval($_POST['salle'])),
