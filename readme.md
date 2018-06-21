@@ -41,5 +41,9 @@ Then install node in any way you want, then less as a global package
 
 `> cd /var/www/symfony/air-sal`
 
+`> php bin/console doctrine:schema:create`
+
+`> php bin/console doctrine:schema:update -f`
+
 `> php bin/console server:run`
 
