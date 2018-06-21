@@ -28,7 +28,7 @@ class SalleController extends Controller
     public function index(SalleRepository $salleRepository, Security $security): Response
     {
 //        var_dump($security->getUser()->getRoles());die();
-        if (in_array("ROLE_ADMIN", $security->getUser()->getRoles())) {
+        if ($security->getUser() && in_array("ROLE_ADMIN", $security->getUser()->getRoles())) {
             $salles = $salleRepository->findAll();
         } else {
             $salles = $salleRepository->findBy(array("published" => True));
