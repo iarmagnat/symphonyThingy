@@ -41,7 +41,7 @@ Then install node in any way you want, then less as a global package
 
 `> cd /var/www/symfony/air-sal`
 
-`> php bin/console doctrine:schema:create`
+Créer une db `air_sal` dans mysql.
 
 `> php bin/console doctrine:schema:update -f`
 
