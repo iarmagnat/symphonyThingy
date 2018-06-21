@@ -120,12 +120,17 @@ class ReservationController extends Controller
         $dateEnd = new \DateTime($_POST['date_end']);
         $reservation -> setDateEnd( $dateEnd );
 
+        if($dateStart >= $dateEnd ){
+            return $this->render('salle/show.html.twig', ['salle' => $docS->findOneById( intval($_POST['salle'])),
+                                                          'errorDateMsg' => "Les dates sont invalides. La date de fin doit etre plus tard que la date de début" ]);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $reservation->setUser($security->getUser());
         $em->persist($reservation);
         $em->flush();
 
-        return $this->redirectToRoute('reservation_index');
+        return $this->redirectToRoute('facture_new', ['id' => $reservation->getId()]);
 
     }
 

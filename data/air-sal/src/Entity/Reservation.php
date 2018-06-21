@@ -164,7 +164,12 @@ class Reservation
     }
     
     public function getReservationPrice(){
-        $prix = $this->getSalle()->getPrice();
+        
+        
+        $date_diff = intval($this->getDateStart()->diff( $this->getDateEnd() )->format('%a'));
+        
+
+        $prix = $this->getSalle()->getPrice() * $date_diff;
         foreach ($this->getPrestations() as $presta){
             $prix +=  $presta->getPriceSurface() * $this->getSalle()->getSize();
             $prix +=  $presta->getPriceUser() * $this->getSalle()->getCapacity();
