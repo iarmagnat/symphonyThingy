@@ -47,6 +47,10 @@ Then install node in any way you want, then less as a global package
 
 `> php bin/console server:run`
 
+#### To promote user to admin
+
+`> php bin/console fos:user:promote`
+
 ---
 
 ## Tasks:
